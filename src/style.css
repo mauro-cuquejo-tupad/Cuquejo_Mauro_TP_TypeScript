@@ -3,6 +3,7 @@
     --color-fondo: #f0ba8d;
     --color-texto: #333;
     --color-blanco: #fff;
+    --color-blanco-focus: #f8f8f8;
     --color-gris: #c4bebe;
     --color-borde: #ddd;
     --color-focus: #ff4500;
@@ -466,4 +467,43 @@ article button {
     justify-content: center;
     font-weight: bold;
     color: var(--color-primario);
+}
+
+.producto-articulo {
+    background-color: var(--color-blanco-focus);
+}
+
+.producto-articulo:hover {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+    background-color: var(--color-blanco);
+    transform: scale(1.05);
+    transition: all 0.3s ease-in-out;
+}
+.admin-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--color-blanco);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin: 1rem;
+    text-transform: uppercase;
+}
+
+.admin-table {
+    margin: 3rem;
+    font-size: 1.3rem;
+    border-collapse: collapse;
+
+    width: 100%;
+}
+
+.admin-table th, .admin-table td {
+    border: 1px solid var(--color-borde);
+    padding: 0.75rem;
+    text-align: left;
+}
+
+.admin-table td {
+    text-transform: lowercase;
 }
