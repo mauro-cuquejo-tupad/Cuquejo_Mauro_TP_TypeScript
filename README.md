@@ -1,98 +1,137 @@
-# Proyecto: Proteccion de Rutas y Store (Educativo)
+# Parcial 1 - Programación 3 - TUPaD
 
-## Descripcion
+Mauro Cuquejo
+Comisión 12.
 
-Este proyecto muestra un flujo frontend con Vite + TypeScript para:
+## Descripción
+Food Store es una aplicación frontend de e-commerce con catálogo de productos, búsqueda, filtrado por categoría y carrito de compras con persistencia en localStorage.
 
-1. Autenticacion basica con localStorage.
-2. Proteccion de rutas por rol (admin y client).
-3. Navegacion entre home de tienda, carrito, login y registro.
-4. Render dinamico de productos con filtros por categoria y texto.
+## Requerimientos Implementados
 
-## Comportamiento Actual Del Sistema
+### 1. Carrito Básico con Persistencia
 
-### 1. Guardia De Rutas Centralizada
+- ✅ Agregar productos desde el catálogo.
+- ✅ Visualizar, modificar cantidad y eliminar productos agregados desde vista de carrito de compras.
+- ✅ Mostrar nombre, precio y cantidad de cada producto.
+- ✅ Calcular y mostrar el total de la compra, actualizado en tiempo real.
+- ✅ Persistencia con localStorage.
 
-La validacion de acceso se ejecuta en src/main.ts.
+**Archivos:**
+- [src/pages/store/cart/cart.html](src/pages/store/cart/cart.html) — Interfaz del carrito
+- [src/pages/store/cart/cart.ts](src/pages/store/cart/cart.ts) — Lógica: renderizado, cantidades, cálculo de total
 
-- Existe una lista de rutas validas (VALID_PAGES):
-    - /
-    - /index.html
-    - /src/pages/auth/login/login.html
-    - /src/pages/auth/registro/registro.html
-    - /src/pages/admin/home/home.html
-    - /src/pages/store/home/home.html
-    - /src/pages/store/cart/cart.html
-- Si la ruta no es valida, el sistema redirige a /src/pages/store/home/home.html.
-- Si se entra a / o /index.html, redirige a login.
+### 2. Búsqueda y Filtrado de Productos
 
-### 2. Reglas Por Sesion Y Rol
+- ✅ Búsqueda de productos por nombre.
+- ✅ Filtrado por categoría desde menú lateral.
+- ✅ Combinación de búsqueda y filtros.
+- ✅ Persistencia de filtros en localStorage.
 
-- Sin usuario logueado:
-    - Solo se permite login o registro.
-    - Cualquier otra ruta redirige a login.
-- Usuario client logueado:
-    - No puede acceder a admin ni a pantallas de auth (login/registro).
-    - Se redirige a home de store.
-- Usuario admin logueado:
-    - No puede acceder a pantallas store ni a login/registro.
-    - Se redirige a home admin.
+**Archivos:**
+- [src/pages/store/home/home.html](src/pages/store/home/home.html) — Catálogo de productos
+- [src/pages/store/home/home.ts](src/pages/store/home/home.ts) — Lógica: renderizado, búsqueda, filtros
 
-### 3. Store: Filtros, Vistas Y UX
+## Consideraciones Técnicas
 
-En src/pages/store/home/home.ts:
+- **Tecnologías:** HTML5, CSS3, JavaScript, TypeScript
+- **Build tool:** Vite
+- **Package manager:** pnpm
+- **Sin frameworks:** La aplicación usa vanilla JavaScript/TypeScript
+- **Persistencia:** localStorage para carrito, filtros y datos de usuario
+- **Gestión de rutas:** Guardia centralizada por roles (admin/client)
 
-- Se persisten filtros en localStorage con la clave store_filters.
-- Se filtra por categoria seleccionada y por texto.
-- Si no hay resultados, se muestra un mensaje en el contenedor de productos.
-- Al agregar un producto:
-    - Se actualiza el carrito.
-    - Se actualiza el contador visual.
-    - El boton muestra estado temporal de confirmado ("Agregado").
+## Estructura del Proyecto
 
-En src/style.css:
+```
+src/
+├── pages/
+│   ├── store/
+│   │   ├── home/
+│   │   │   ├── home.html          ← Catálogo de productos
+│   │   │   └── home.ts            ← Lógica: render, búsqueda, filtros
+│   │   └── cart/
+│   │       ├── cart.html          ← Vista del carrito
+│   │       └── cart.ts            ← Lógica: render, cantidades, total
+│   ├── auth/
+│   │   ├── login/
+│   │   │   ├── login.html
+│   │   │   └── login.ts
+│   │   └── registro/
+│   │       ├── registro.html
+│   │       └── registro.ts
+│   └── admin/
+│       └── home/
+│           ├── home.html
+│           └── home.ts
+├── types/
+│   ├── product.ts                 ← Interfaces Product y CartItem
+│   ├── categoria.ts               ← Interface ICategoria
+│   ├── IUser.ts
+│   └── Rol.ts
+├── data/
+│   └── data.ts                    ← PRODUCTS y categorias
+├── utils/
+│   ├── localStorage.ts            ← Gestión de persistencia
+│   ├── navigate.ts                ← Helper de navegación
+│   └── auth.ts
+├── main.ts                        ← Guard global de rutas
+├── style.css
+└── vite-env.d.ts
+```
 
-- El mensaje de "sin resultados" ocupa toda la fila del grid usando:
-    - #contenedor-productos .no-resultados { grid-column: 1 / -1; }
+## Comportamiento de la Aplicación
 
-### 4. Carrito Con Contador Visual
+### Catálogo de Productos
+- Renderizado dinámico del listado de productos
+- Campo de búsqueda en tiempo real
+- Filtrado por categoría desde menú lateral
+- Botón para agregar productos al carrito
+- Indicador visual al agregar un producto
 
-En el header de store y carrito, "Carrito" se muestra como boton con badge numerico.
+### Carrito de Compras
+- Visualización de todos los productos agregados
+- Cantidad modifiable con botones +/-
+- Eliminación individual de productos
+- Cálculo automático del total
+- Botón para vaciar el carrito
+- Cantidad total de items del carrito visible en el header
 
-En src/pages/store/cart/cart.ts:
 
-- actualizarContadorCarrito calcula la cantidad total (sumatoria de item.cantidad).
-- El valor se renderiza dentro de .carrito-badge.
-- Si no hay datos o hay error de parseo, muestra 0.
+## Comportamiento de la Aplicación relacionado con ampliación del TP 4.
+### Autenticación y Autorización
+- Login y registro de usuarios
+- Creación de usuario admin default.
+- Protección de rutas por rol (admin/client)
+- Guardias centralizadas en [src/main.ts](src/main.ts)
+- Corregido error en guardia centralizada al acceder a rutas no existentes.
+- Sesión persistida en localStorage de usuarios registrados y usuario logueado actualmente.
+- Logout que limpia sesión y filtros de búsqueda.
+- Descentralización de lógica por preparación para futuro agregado de backend.
 
-## Importante: Seguridad
+## Instalación y Ejecución
 
-Este proyecto es educativo.
+### Requisitos
+- Node.js (v16+)
+- pnpm (o npm)
 
-- La sesion y datos de usuario se guardan en localStorage.
-- Esto NO es seguro para produccion.
-- En un entorno real, la autenticacion/autorizacion debe resolverse en backend (tokens, expiracion, validacion de permisos, etc.).
+### Pasos
 
-## Instalacion Y Ejecucion
+1. Instalar pnpm:
 
-1. Instalar dependencias:
+```bash
+npm install -g pnpm
+```
 
-     npm install -g pnpm
-     pnpm install
+2. Clonar o descargar el proyecto ([Link al Repositorio](https://github.com/mauro-cuquejo-tupad/Cuquejo_Mauro_TP_TypeScript)) e instalar dependencias:
 
-2. Levantar entorno de desarrollo:
+```bash
+pnpm install
+```
 
-     pnpm dev
+3. Iniciar servidor de desarrollo:
 
-3. Abrir la URL informada por Vite (normalmente http://localhost:5173).
+```bash
+pnpm dev
+```
 
-## Estructura Relevante
-
-- src/main.ts: guardia de rutas global y redirecciones por rol.
-- src/utils/localStorage.ts: manejo de usuario, usuarios y carrito.
-- src/utils/navigate.ts: helper de navegacion.
-- src/pages/auth/login/login.ts: login y redireccion por rol.
-- src/pages/auth/registro/registro.ts: registro de usuario cliente.
-- src/pages/store/home/home.ts: listado, filtros y agregado al carrito.
-- src/pages/store/cart/cart.ts: render del carrito y contador visual.
-- src/style.css: estilos globales, grilla de productos y badge de carrito.
+4. Abrir la URL (`http://localhost:5173`)
