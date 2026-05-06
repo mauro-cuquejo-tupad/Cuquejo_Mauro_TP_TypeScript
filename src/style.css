@@ -285,15 +285,18 @@ article button {
 
 .carrito {
     display: flex;
-    flex-direction: row;
+    gap: 2rem;
+    align-items: flex-start;
     justify-content: space-between;
+    padding: 1.5rem;
 }
+
 
 .carrito-articulo {
     display: flex;
+    gap: 2rem;
     flex-direction: row;
     justify-content: space-between;
-    flex-wrap: wrap;
     background: var(--color-blanco);
     border-radius: 1.5rem;
     justify-items: center;
@@ -370,13 +373,19 @@ article button {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    justify-content: baseline;
+    justify-content: flex-start;
     border-radius: 1.5rem;
     background: var(--color-blanco);
     gap: 15px;
     padding: 1rem;
     margin: 1rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
 
+    position: sticky;
+    top: 12.5rem;
+    width: 350px;
+    min-height: 300px;
+    flex-shrink: 0;
 }
 
 
@@ -386,13 +395,21 @@ article button {
         flex-direction: column;
     }
 
+    .buscar-productos {
+        margin: 2rem 0 0 0;
+    }
+
+
+    #productos-destacados {
+        margin: 0 1rem 0 -1rem;
+    }
+
     .store-layout aside {
         flex: 1;
-        margin: 0 1rem 0 1rem;
+        margin: -2rem -2rem 0 -2rem;
         position: sticky;
-        top: 160px;
-        min-width: 300px;
-        width: 100%;
+        top: 13rem;
+        min-width: 350px;
     }
 
     .header-bar {
@@ -402,6 +419,41 @@ article button {
         align-items: center;
         justify-content: space-between;
         gap: 1rem;
+        z-index: 1000;
+    }
+
+    .producto-articulo {
+        width: 100%;
+    }
+
+    .carrito {
+        flex-direction: column-reverse;
+        padding: 0;
+    }
+
+    .total-carrito{
+        flex: 1;
+        position: sticky;
+        top:13.2rem;
+        border-radius: 0%;
+        min-width: 350px;
+        width: stretch;
+        margin:0;
+    }
+
+    .carrito-articulo {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 2rem;
+        padding: 2rem;
+        max-width: fit-content;
+        justify-self: anchor-center;
+    }
+
+     .carrito-articulo img {
+        width: 100%;
+        height: auto;
     }
 }
 
