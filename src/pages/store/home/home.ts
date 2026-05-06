@@ -1,9 +1,9 @@
 import { categorias, PRODUCTS } from "../../../data/data";
 import type { ICategoria } from "../../../types/categoria";
 import type { FiltrosBusqueda } from "../../../types/filtros";
-import type { CartItem, Product } from "../../../types/product";
+import type { Product } from "../../../types/product";
 import { logout } from "../../../utils/auth";
-import { getStoreFilters, removeStoreFilters, saveStoreFilters } from "../../../utils/localStorage";
+import { getStoreFilters, saveStoreFilters } from "../../../utils/localStorage";
 import { actualizarContadorCarrito, agregarAlCarrito } from "../cart/cart";
 
 const buttonLogout : HTMLButtonElement | null = document.querySelector<HTMLButtonElement>("#logoutButton");
