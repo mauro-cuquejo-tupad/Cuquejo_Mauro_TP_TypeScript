@@ -7,7 +7,8 @@
     --color-gris: #c4bebe;
     --color-borde: #ddd;
     --color-focus: #ff4500;
-    --color-borrar: #43575c;
+    --color-borrar: #33724f;
+    --color-borrar-focus: #266442;
     --color-seccion: #b93f25;
     --color-agregado: #28a745;
     --color-agregado-focus: #136b27;
@@ -306,6 +307,15 @@ article button {
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
 }
 
+.carrito-articulo:hover {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+    background-color: var(--color-blanco);
+    transform: scale(1.05);
+    transition: all 0.3s ease-in-out;
+}
+
+
+
 .titulo-carrito {
     font-variant: small-caps;
 }
@@ -365,8 +375,16 @@ article button {
     background-color: var(--color-borrar);
 }
 
+.btn-borrar:hover {
+    background-color: var(--color-borrar-focus);
+}
+
 .btn-eliminar-producto {
     background-color: var(--color-borrar);
+}
+
+.btn-eliminar-producto:hover {
+    background-color: var(--color-borrar-focus);
 }
 
 .total-carrito {
@@ -410,6 +428,7 @@ article button {
         position: sticky;
         top: 13rem;
         min-width: 350px;
+        z-index: 1000;
     }
 
     .header-bar {
