@@ -3,9 +3,6 @@
 ### Mauro Cuquejo
 ### Comisión 12.
 
-## Descripción
-Food Store es una aplicación frontend de e-commerce con catálogo de productos, búsqueda, filtrado por categoría y carrito de compras con persistencia en localStorage.
-
 ## Requerimientos Implementados
 
 ### 1. Carrito Básico con Persistencia
