@@ -5,5 +5,3 @@ const buttonLogout = document.getElementById("logoutButton") as HTMLButtonElemen
 buttonLogout?.addEventListener("click", () => {
   logout();
 });
-
-

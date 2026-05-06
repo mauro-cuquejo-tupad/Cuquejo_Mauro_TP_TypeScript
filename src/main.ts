@@ -1,5 +1,5 @@
 import type { IUser } from "./types/IUser";
-import { findUser, getUSer, removeUser, saveUsers } from "./utils/localStorage";
+import { getUsersByEmail, getUSer, removeUser, saveUsers } from "./utils/localStorage";
 import { navigate } from "./utils/navigate";
 
 const HOME_STORE: string = "/src/pages/store/home/home.html";
@@ -80,7 +80,7 @@ const alertaRedireccion = (pagina: string): void => {
 }
 
 const generarUsuarioAdmin = (): void => {
-    const usuarioExistente: IUser | null = findUser("admin@gmail.com");
+    const usuarioExistente: IUser | null = getUsersByEmail("admin@gmail.com");
     if (!usuarioExistente) {
         const usuarioAdmin: IUser = {
             email: "admin@gmail.com",

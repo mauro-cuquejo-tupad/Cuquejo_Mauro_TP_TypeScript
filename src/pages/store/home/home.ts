@@ -3,6 +3,7 @@ import type { ICategoria } from "../../../types/categoria";
 import type { FiltrosBusqueda } from "../../../types/filtros";
 import type { CartItem, Product } from "../../../types/product";
 import { logout } from "../../../utils/auth";
+import { getStoreFilters, removeStoreFilters, saveStoreFilters } from "../../../utils/localStorage";
 import { actualizarContadorCarrito, agregarAlCarrito } from "../cart/cart";
 
 const buttonLogout : HTMLButtonElement | null = document.querySelector<HTMLButtonElement>("#logoutButton");
@@ -15,25 +16,22 @@ let categoriaSeleccionada: string = "";
 
 
 //persistencia de filtros
-const FILTERS_KEY = "store_filters";
-
 const guardarFiltros = () : void => {
   const datosFiltros: FiltrosBusqueda = {
     categoria: categoriaSeleccionada || "Todos los productos",
     busqueda: inputBuscarProductos?.value || "",
   };
-  localStorage.setItem(FILTERS_KEY, JSON.stringify(datosFiltros));
+  saveStoreFilters(datosFiltros);
 };
 
 const cargarFiltros = () => {
-  const datosFiltrosRaw = localStorage.getItem(FILTERS_KEY);
-  if (!datosFiltrosRaw) return;
+  const datosFiltros = getStoreFilters();
+  if (!datosFiltros) return;
   try {
-    const datosFiltrosParseados: FiltrosBusqueda = JSON.parse(datosFiltrosRaw);
-    categoriaSeleccionada = datosFiltrosParseados.categoria || "";
+    categoriaSeleccionada = datosFiltros.categoria || "";
 
-    if (inputBuscarProductos && datosFiltrosParseados.busqueda) {
-      inputBuscarProductos.value = datosFiltrosParseados.busqueda;
+    if (inputBuscarProductos && datosFiltros.busqueda) {
+      inputBuscarProductos.value = datosFiltros.busqueda;
     }
   } catch (error) {
     console.error(error);
@@ -193,7 +191,6 @@ const inicializarDelegacionCategorias = () => {
 buttonLogout?.addEventListener("click", () => {
   logout();
 });
-//agregar a localStorage la categoria actual asi puedo mantenerla en el refresh.
 
 cargarFiltros();
 cargarCategorias();

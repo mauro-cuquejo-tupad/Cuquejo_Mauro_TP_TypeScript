@@ -1,5 +1,5 @@
 import type { IUser } from "../../../types/IUser";
-import { findUser } from "../../../utils/localStorage";
+import { getUsersByEmail, saveUser } from "../../../utils/localStorage";
 import { navigate } from "../../../utils/navigate";
 
 const form = document.getElementById("form") as HTMLFormElement;
@@ -16,7 +16,7 @@ form.addEventListener("submit", (e: SubmitEvent) => {
         return;
     }
 
-  const usuarioBuscado: IUser | null = findUser(valueEmail);
+  const usuarioBuscado: IUser | null = getUsersByEmail(valueEmail);
   if (!usuarioBuscado) {
     alert("Usuario no encontrado");
     return;
@@ -26,8 +26,7 @@ form.addEventListener("submit", (e: SubmitEvent) => {
   } else {
     alert("Login exitoso");
     usuarioBuscado.loggedIn = true;
-    const parseUser = JSON.stringify(usuarioBuscado);
-    localStorage.setItem("userData", parseUser);
+    saveUser(usuarioBuscado);
 
     if (usuarioBuscado.role === "admin") {
       navigate("/src/pages/admin/home/home.html");
@@ -35,7 +34,6 @@ form.addEventListener("submit", (e: SubmitEvent) => {
       navigate("/src/pages/store/home/home.html");
     }
   }
-
 });
 
 

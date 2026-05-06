@@ -1,37 +1,57 @@
+import type { FiltrosBusqueda } from "../types/filtros";
 import type { IUser } from "../types/IUser";
 import type { CartItem, Product } from "../types/product";
 
-export const saveUser = (user: IUser) => {
-  const parseUser = JSON.stringify(user);
-  localStorage.setItem("userData", parseUser);
-};
+
+const USER_DATA_KEY: string = "userData";
+const STORE_FILTERS_KEY: string = "store_filters";
+const USERS_KEY: string = "users";
+
+
+// datos de usuario actual
 export const getUSer = () => {
-  return localStorage.getItem("userData");
-};
-export const removeUser = () => {
-  localStorage.removeItem("userData");
+  return localStorage.getItem(USER_DATA_KEY);
 };
 
-export const saveUsers = (user: IUser) => {
+export const saveUser = (user: IUser) => {
+  const parseUser = JSON.stringify(user);
+  localStorage.setItem(USER_DATA_KEY, parseUser);
+};
+
+export const removeUser = () => {
+  localStorage.removeItem(USER_DATA_KEY);
+};
+
+
+// datos de filtros de busqueda en home store
+export const getStoreFilters = (): FiltrosBusqueda | null => {
+  const filtersData = localStorage.getItem(STORE_FILTERS_KEY);
+  if (!filtersData) return null;
   try {
-    const usuariosGuardados = getUsers();
-    const usuarios: IUser[] = usuariosGuardados ? JSON.parse(usuariosGuardados) : [];
-    usuarios.push(user);
-    localStorage.setItem("users", JSON.stringify(usuarios));
-  } catch {
-    localStorage.setItem("users", JSON.stringify([user]));
+    return JSON.parse(filtersData);
+  } catch (error) {
+    console.error("Error al parsear los filtros de búsqueda:", error);
+    return null;
   }
 };
 
+export const saveStoreFilters = (filters: FiltrosBusqueda) => {
+  localStorage.setItem(STORE_FILTERS_KEY, JSON.stringify(filters));
+};
+
+
+export const removeStoreFilters = () => {
+  localStorage.removeItem(STORE_FILTERS_KEY);
+};
+
+
+
+//datos de usuarios registrados
 export const getUsers = () => {
-  return localStorage.getItem("users");
+  return localStorage.getItem(USERS_KEY);
 };
 
-export const removeUsers = () => {
-  localStorage.removeItem("users");
-};
-
-export const findUser = (email: string): IUser | null => {
+export const getUsersByEmail = (email: string): IUser | null => {
   const usersData = getUsers();
   if (usersData) {
     const usersArray: IUser[] = JSON.parse(usersData);
@@ -40,12 +60,43 @@ export const findUser = (email: string): IUser | null => {
   return null;
 };
 
+export const saveUsers = (user: IUser) => {
+  try {
+    const usuariosGuardados = getUsers();
+    const usuarios: IUser[] = usuariosGuardados ? JSON.parse(usuariosGuardados) : [];
+    usuarios.push(user);
+    localStorage.setItem(USERS_KEY, JSON.stringify(usuarios));
+  } catch {
+    localStorage.setItem(USERS_KEY, JSON.stringify([user]));
+  }
+};
+
+export const removeUsers = () => {
+  localStorage.removeItem(USERS_KEY);
+};
+
+
+// datos de carrito de compras
+const getCartKey = (): string => {
+  const userEmail = getUSer();
+  if (!userEmail) {
+    throw new Error("No hay un usuario logueado");
+  }
+  try {
+    const userData: IUser = JSON.parse(userEmail);
+    return `cart_${userData.email}`;
+  } catch (error) {
+    console.error("Error al parsear el usuario logueado:", error);
+    throw new Error("Error al obtener la clave del carrito");
+  }
+};
+
 export const getProductCart = (): string | null => {
-  return localStorage.getItem("cart");
+  return localStorage.getItem(getCartKey());
 };
 
 export const deleteProductCart = (): void => {
-  localStorage.removeItem("cart");
+  localStorage.removeItem(getCartKey());
 };
 
 export const addProductCart = (product: Product): void => {
@@ -66,16 +117,15 @@ export const addProductCart = (product: Product): void => {
       cartItems.push(cartItem);
     }
 
-    localStorage.setItem("cart", JSON.stringify(cartItems));
+    localStorage.setItem(getCartKey(), JSON.stringify(cartItems));
   } catch {
-    localStorage.setItem("cart", JSON.stringify([{
+    localStorage.setItem(getCartKey(), JSON.stringify([{
         id: product.id,
         cantidad: 1,
         producto: product
       }]));
   }
 };
-
 
 export const removeProductCart = (product : Product): void => {
   try {
@@ -92,17 +142,16 @@ export const removeProductCart = (product : Product): void => {
     }
 
     if(cartItems.length > 0) {
-      localStorage.setItem("cart", JSON.stringify(cartItems));
+      localStorage.setItem(getCartKey(), JSON.stringify(cartItems));
     } else {
-      localStorage.removeItem("cart");
+      localStorage.removeItem(getCartKey());
     }
 
   } catch {
     console.error("error al remover producto");
-    localStorage.removeItem("cart");
+    localStorage.removeItem(getCartKey());
   }
 };
-
 
 export const removeAllProductsCart = (product : Product): void => {
   try {
@@ -115,13 +164,13 @@ export const removeAllProductsCart = (product : Product): void => {
     cartItems = cartItems.filter((c: CartItem) => c.id !== product.id);
 
     if(cartItems.length > 0) {
-      localStorage.setItem("cart", JSON.stringify(cartItems));
+      localStorage.setItem(getCartKey(), JSON.stringify(cartItems));
     } else {
-      localStorage.removeItem("cart");
+      localStorage.removeItem(getCartKey());
     }
 
   } catch {
     console.error("error al remover producto");
-    localStorage.removeItem("cart");
+    localStorage.removeItem(getCartKey());
   }
 };

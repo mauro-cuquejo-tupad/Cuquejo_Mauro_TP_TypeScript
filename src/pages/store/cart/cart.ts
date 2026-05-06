@@ -105,12 +105,11 @@ const crearItemCarrito = (item: CartItem): HTMLDivElement => {
   itemCarrito.appendChild(divImagen);
   itemCarrito.appendChild(divDatosCompra);
   itemCarrito.appendChild(divModificarCantidad);
-  //itemCarrito.appendChild(botonEliminarProducto);
   return itemCarrito;
 };
 
 const crearDatosItemsCarrito = (carritoCompras: CartItem[]): HTMLDivElement => {
-  let datosItemsCarrito: HTMLDivElement = document.createElement("div"); //aca está mal porque no es una lista esto.
+  let datosItemsCarrito: HTMLDivElement = document.createElement("div");
   carritoCompras.forEach((item: CartItem) => datosItemsCarrito.appendChild(crearItemCarrito(item)));
   return datosItemsCarrito;
 };
@@ -219,7 +218,7 @@ const renderizarCarrito = (): void => {
 export const actualizarContadorCarrito = (): void => {
   if (!contadorCarrito) return;
   try {
-    const datosCarritoRaw = localStorage.getItem("cart");
+    const datosCarritoRaw = getProductCart();
     const badge = contadorCarrito.querySelector<HTMLSpanElement>(".carrito-badge");
     if (!badge) return;
 
@@ -242,7 +241,7 @@ export const actualizarContadorCarrito = (): void => {
 export const actualizarImporteTotalCarrito = (): number => {
   if (!contadorCarrito) return 0;
   try {
-    const datosCarritoRaw = localStorage.getItem("cart");
+    const datosCarritoRaw = getProductCart();
     if (!datosCarritoRaw) {
       return 0;
     }

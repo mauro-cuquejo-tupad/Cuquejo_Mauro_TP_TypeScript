@@ -1,6 +1,6 @@
 import type { IUser } from "../../../types/IUser";
 import { navigate } from "../../../utils/navigate";
-import { saveUsers, findUser } from "../../../utils/localStorage";
+import { saveUsers, getUsersByEmail } from "../../../utils/localStorage";
 
 const form = document.getElementById("form") as HTMLFormElement;
 
@@ -25,7 +25,7 @@ form.addEventListener("submit", (e: SubmitEvent) => {
         role: "client",
     };
 
-    if (findUser(user.email)) {
+    if (getUsersByEmail(user.email)) {
         alert("El usuario ya existe. Por favor, inicie sesión.");
     } else {
         saveUsers(user);
