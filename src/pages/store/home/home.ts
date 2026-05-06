@@ -75,7 +75,7 @@ const crearArticuloProducto = (producto: Product) :HTMLElement => {
     botonAgregar.addEventListener("click", () => {
       agregarAlCarrito(producto.id);
       actualizarContadorCarrito();
-      reflejarAgregadoAlCarrito(botonAgregar);
+      renderizarBotonProductoAgregado(botonAgregar);
     });
 
     articulo.appendChild(titulo);
@@ -135,7 +135,7 @@ const cargarProductos = (lista: Product[] = PRODUCTS) : void => {
   });
 };
 
-const reflejarAgregadoAlCarrito = (boton: HTMLButtonElement) : void => {
+const renderizarBotonProductoAgregado = (boton: HTMLButtonElement) : void => {
   boton.textContent = "✓ Agregado";
   boton.disabled = true;
   boton.classList.add("agregado");
@@ -195,7 +195,7 @@ buttonLogout?.addEventListener("click", () => {
 cargarFiltros();
 cargarCategorias();
 inicializarDelegacionCategorias();
-cargarProductos();
+filtrarYRenderizar();
 actualizarContadorCarrito();
 
 //listeners
