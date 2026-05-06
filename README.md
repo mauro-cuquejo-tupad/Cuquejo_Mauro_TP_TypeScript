@@ -1,7 +1,7 @@
 # Parcial 1 - Programación 3 - TUPaD
 
-Mauro Cuquejo
-Comisión 12.
+### Mauro Cuquejo
+### Comisión 12.
 
 ## Descripción
 Food Store es una aplicación frontend de e-commerce con catálogo de productos, búsqueda, filtrado por categoría y carrito de compras con persistencia en localStorage.
@@ -112,7 +112,7 @@ src/
 
 ### Requisitos
 - Node.js (v16+)
-- pnpm (o npm)
+- pnpm
 
 ### Pasos
 
