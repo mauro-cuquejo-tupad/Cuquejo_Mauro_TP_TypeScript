@@ -149,6 +149,7 @@ const crearDatosTotalCarrito = (): HTMLDivElement => {
   return datosTotalCarrito;
 };
 
+//renderers
 const inicializarVacia = (carrito: HTMLElement) => {
   carrito?.classList.remove("carrito");
   carrito.appendChild(crearItemCarritoVacio());
