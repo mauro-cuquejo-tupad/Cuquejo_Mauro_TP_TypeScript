@@ -145,7 +145,7 @@ const reflejarAgregadoAlCarrito = (boton: HTMLButtonElement) : void => {
     boton.textContent = "Agregar al carrito";
     boton.disabled = false;
     boton.classList.remove("agregado");
-  }, 2000);
+  }, 1000);
 };
 
 //filtrado
