@@ -64,7 +64,7 @@ header nav a:hover {
 }
 
 .header-bar {
-    display: flex;;
+    display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
@@ -81,7 +81,7 @@ header nav a:hover {
     display: flex;
     flex-direction: row;
     margin: 1.5rem;
-    padding: auto 1rem;
+    padding: 1rem;
     align-items: flex-start;
     flex: 1;
 }
@@ -342,7 +342,6 @@ article button {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    justify-content: space-around;
 }
 
 .cantidad-carrito {
@@ -390,7 +389,6 @@ article button {
 .total-carrito {
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
     justify-content: flex-start;
     border-radius: 1.5rem;
     background: var(--color-blanco);
@@ -411,6 +409,7 @@ article button {
 @media (max-width: 900px) {
     .store-layout {
         flex-direction: column;
+        padding: 0;
     }
 
     .buscar-productos {
@@ -429,6 +428,12 @@ article button {
         top: 13rem;
         min-width: 350px;
         z-index: 1000;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    }
+
+    header {
+        box-shadow:none;
+        border-bottom: 1px solid var(--color-borde);
     }
 
     .header-bar {
@@ -450,13 +455,13 @@ article button {
         padding: 0;
     }
 
-    .total-carrito{
+    .total-carrito {
         flex: 1;
         position: sticky;
-        top:13.2rem;
-        border-radius: 0%;
+        top:13rem;
+        border-radius: 0;
         min-width: 350px;
-        width: stretch;
+        width: 100%;
         margin:0;
     }
 
@@ -467,7 +472,6 @@ article button {
         margin: 2rem;
         padding: 2rem;
         max-width: fit-content;
-        justify-self: anchor-center;
     }
 
      .carrito-articulo img {
@@ -521,7 +525,7 @@ article button {
     border: 1px solid var(--color-texto);
     background-color: var(--color-blanco);
     color: var(--color-primario);
-    border-radius: 100%;
+    border-radius: 20%;
     font-size: 1rem;
     font-weight: bold;
     padding: 0.5rem;
@@ -533,7 +537,6 @@ article button {
 
 .precio {
     font-size: 1.8rem;
-    justify-content: center;
     font-weight: bold;
     color: var(--color-primario);
 }
